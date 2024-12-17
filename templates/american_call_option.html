@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>American Call Option NFT</title>
+
+    <style>
+      @font-face {
+        font-family: "IBM Plex Sans";
+        src: url("font/IBMPlexSans-Regular.woff2") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "IBM Plex Mono";
+        src: url("font/IBMPlexMono-Regular.woff2") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      html {
+        font-family: "IBM Plex Sans", sans-serif !important;
+      }
+
+      .mono {
+        font-family: "IBM Plex Mono";
+        font-variant-numeric: slashed-zero;
+        font-feature-settings: "zero" 1;
+      }
+
+      .bg-nice {
+        background-color: rgb(70, 85, 255);
+      }
+
+      #qrcode img {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        width: 50px;
+        height: 50px;
+      }
+
+      #content {
+        position: relative;
+        margin: 40px auto 0;
+        display: flex;
+        height: 420px;
+        width: 360px;
+        background-color: white;
+        overflow: hidden;
+      }
+
+      #contract_id {
+        font-family: "IBM Plex Mono";
+        position: absolute;
+        right: 130px;
+        top: 185px;
+        margin: 12px 0 8px;
+        display: inline-block;
+        transform: rotate(-90deg);
+        background-color: rgb(70, 85, 255);
+        padding: 2px 40px;
+        text-align: center;
+        font-size: 0.549rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: white;
+      }
+
+      .content-wrapper {
+        padding: 24px 24px 24px 40px;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.3rem;
+      }
+
+      #underlying_title_icon {
+        margin: auto 0;
+        height: 24px;
+        width: 24px;
+        border-radius: 9999px;
+      }
+
+      #qrcode {
+        margin-left: auto;
+      }
+
+      .info-section {
+        margin-top: 20px;
+        font-size: 0.875rem;
+        line-height: 1.5rem;
+      }
+
+      .info-section {
+        margin-top: 14px;
+      }
+
+      .info-label {
+        color: #6B7280;
+      }
+
+      .info-value {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .info-value img {
+        margin: auto 0;
+        height: 16px;
+        width: 16px;
+        border-radius: 9999px;
+      }
+
+      .asset-code {
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .footer-text {
+        margin-top: 56px;
+        font-size: 0.875rem;
+        color: #6B7280;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <span id="contract_id"></span>
+      <div class="content-wrapper">
+        <div class="header">
+          <img id="underlying_title_icon" />
+          <span id="underlying_title"></span>
+          <span>Call Option</span>
+          <div id="qrcode"></div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-label">Contract Size</div>
+          <span class="info-value mono">
+            <img id="underlying_asset_icon" />
+            <span id="underlying_asset_amount"></span>
+            <span id="underlying_asset_code" class="asset-code"></span>
+          </span>
+        </div>
+
+        <div class="info-section">
+          <div class="info-label">Strike Price</div>
+          <span class="info-value mono">
+            <img id="settlement_asset_icon" />
+            <span id="strike_price"></span>
+            <span id="settlement_asset_code" class="asset-code"></span>
+          </span>
+        </div>
+
+        <div class="info-section">
+          <div class="info-label">Expiration Date</div>
+          <span id="expiration" class="mono"></span>
+        </div>
+
+        <div class="footer-text">
+          The owner of this NFT can exercise the underlying option at any time
+          up to the expiration date.
+        </div>
+      </div>
+    </div>
+
+    <script src="js/lib/qrcode.js"></script>
+    <script src="js/populate.js"></script>
+  </body>
+</html>
