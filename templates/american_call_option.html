@@ -26,7 +26,6 @@
       .mono {
         font-family: "IBM Plex Mono";
         font-variant-numeric: slashed-zero;
-        font-feature-settings: "zero" 1;
       }
 
       .bg-nice {
@@ -50,21 +49,22 @@
         overflow: hidden;
       }
 
-      #contract_id {
+      .contract_id_wrapper {
         font-family: "IBM Plex Mono";
         position: absolute;
-        right: 130px;
-        top: 185px;
-        margin: 12px 0 8px;
+        left: 0px;
+        height: 420px;
         display: inline-block;
-        transform: rotate(-90deg);
         background-color: rgb(70, 85, 255);
-        padding: 2px 40px;
+        padding: 2px;
         text-align: center;
         font-size: 0.549rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         color: white;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
       }
 
       .content-wrapper {
@@ -132,7 +132,9 @@
   </head>
   <body>
     <div id="content">
-      <span id="contract_id"></span>
+      <div class="contract_id_wrapper">
+        <div id="contract_id"></div>
+      </div>
       <div class="content-wrapper">
         <div class="header">
           <img id="underlying_title_icon" />
