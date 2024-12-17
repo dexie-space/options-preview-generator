@@ -1,13 +1,25 @@
 use headless_chrome::protocol::cdp::Page::CaptureScreenshotFormatOption;
 use headless_chrome::Browser;
+use headless_chrome::LaunchOptions;
 use lazy_static::lazy_static;
 use serde::Deserialize;
+use std::ffi::OsStr;
 use std::sync::Arc;
 use warp::Filter;
 
 lazy_static! {
-    static ref BROWSER: Arc<Browser> =
-        Arc::new(Browser::default().expect("Failed to create browser"));
+    static ref BROWSER: Arc<Browser> = Arc::new(
+        Browser::new(
+            LaunchOptions::default_builder()
+                .args(vec![
+                    OsStr::new("--force-device-scale-factor=2"),
+                    OsStr::new("--window-size=2560,1440")
+                ])
+                .build()
+                .unwrap()
+        )
+        .expect("Failed to create browser")
+    );
 }
 
 // Query parameters structure
