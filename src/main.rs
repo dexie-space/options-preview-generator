@@ -40,12 +40,9 @@ async fn generate_screenshot(params: QueryParams) -> Result<impl warp::Reply, wa
         .new_tab()
         .map_err(|_| warp::reject::custom(ServerError))?;
 
-    let html_path = std::env::current_dir()
-        .map_err(|_| warp::reject::custom(ServerError))?
-        .join(format!(
-            "templates/{}.html",
-            params.contract_type.to_lowercase()
-        ))
+    let html_path = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("templates")
+        .join(format!("{}.html", params.contract_type.to_lowercase()))
         .display()
         .to_string();
 
