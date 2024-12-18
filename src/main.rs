@@ -5,6 +5,7 @@ use lazy_static::lazy_static;
 use parking_lot::Mutex;
 use serde::Deserialize;
 use std::ffi::OsStr;
+use std::net::IpAddr;
 use std::sync::Arc;
 use warp::Filter;
 
@@ -108,11 +109,19 @@ impl warp::reject::Reject for ServerError {}
 
 #[tokio::main]
 async fn main() {
+    let host = std::env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
+    let port = std::env::var("PORT")
+        .unwrap_or_else(|_| "3030".to_string())
+        .parse::<u16>()
+        .expect("PORT must be a valid number");
+
+    let addr: IpAddr = host.parse().expect("Host must be a valid IP address");
+
+    println!("Server starting on http://{}:{}", host, port);
+
     let screenshot = warp::get()
         .and(warp::query::<QueryParams>())
         .and_then(generate_screenshot);
 
-    println!("Server starting on http://localhost:3030");
-
-    warp::serve(screenshot).run(([127, 0, 0, 1], 3030)).await;
+    warp::serve(screenshot).run((addr, port)).await;
 }
