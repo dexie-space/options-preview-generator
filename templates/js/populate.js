@@ -19,7 +19,6 @@ function updateTokenIcon(id, tokenId) {
 }
 
 (async () => {
-  window.readyToCapture = true;
   const tokens = await fetchTokenInfo();
   const params = new URLSearchParams(window.location.search);
 
