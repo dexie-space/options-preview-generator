@@ -9,8 +9,7 @@ use std::sync::Arc;
 use warp::Filter;
 
 lazy_static! {
-    static ref BROWSER: Arc<Mutex<Option<Arc<Browser>>>> =
-        Arc::new(Mutex::new(Some(create_browser())));
+    static ref BROWSER: Mutex<Option<Arc<Browser>>> = Mutex::new(Some(create_browser()));
 }
 
 fn create_browser() -> Arc<Browser> {
@@ -48,7 +47,7 @@ async fn generate_screenshot(params: QueryParams) -> Result<impl warp::Reply, wa
         if browser_guard.is_none() {
             *browser_guard = Some(create_browser());
         }
-        Arc::clone(browser_guard.as_ref().unwrap())
+        browser_guard.as_ref().unwrap().clone()
     };
 
     let tab = match browser.new_tab() {
